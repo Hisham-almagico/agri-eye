@@ -1,6 +1,6 @@
-gdown
 streamlit
-tensorflow
+tensorflow==2.11.0
 pillow
-numpy
 fpdf
+numpy
+gdown
