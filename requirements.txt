@@ -1,5 +1,4 @@
-streamlit
-pillow
+tensorflow>=2.13
 numpy
-gdown
-tflite-runtime
+Pillow
+streamlit
