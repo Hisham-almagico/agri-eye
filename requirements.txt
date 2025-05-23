@@ -1,0 +1,6 @@
+gdown
+streamlit
+tensorflow
+pillow
+numpy
+fpdf
