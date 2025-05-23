@@ -4,6 +4,41 @@ from PIL import Image
 import gdown
 import os
 from tensorflow.lite.python.interpreter import Interpreter
+import tensorflow as tf
+import numpy as np
+
+def run_tflite_model(model_path):
+    # تحميل موديل TFLite
+    interpreter = tf.lite.Interpreter(model_path=model_path)
+    interpreter.allocate_tensors()
+
+    # الحصول على تفاصيل الإدخال والإخراج
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
+
+    print("Input details:", input_details)
+    print("Output details:", output_details)
+
+    # تجهيز بيانات عشوائية طبقاً لشكل الإدخال (يمكنك استبدالها ببيانات حقيقية)
+    input_shape = input_details[0]['shape']
+    input_dtype = input_details[0]['dtype']
+    input_data = np.array(np.random.random_sample(input_shape), dtype=input_dtype)
+
+    # تعيين البيانات للإدخال
+    interpreter.set_tensor(input_details[0]['index'], input_data)
+
+    # تشغيل التنبؤ
+    interpreter.invoke()
+
+    # استخراج النتائج من الإخراج
+    output_data = interpreter.get_tensor(output_details[0]['index'])
+    print("Output data:", output_data)
+
+if __name__ == "__main__":
+    # ضع هنا مسار ملف نموذج TFLite لديك
+    model_file = "model.tflite"
+
+    run_tflite_model(model_file)
 
 # تحميل النموذج tflite من Google Drive إذا لم يكن موجودًا
 MODEL_PATH = "model.tflite"
